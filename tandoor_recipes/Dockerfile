@@ -46,15 +46,15 @@ ARG MODULES="00-banner.sh 01-custom_script.sh"
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
 RUN chmod 744 /ha_automodules.sh && /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
-# Upgrade cryptography to version compatible with OpenSSL 3
-RUN pip install --no-cache-dir --upgrade cryptography>=39.0.0
-
 # Manual apps
 ENV PACKAGES="mysql-client"
 
 # Automatic apps & bashio
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
 RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
+
+# Upgrade cryptography to version compatible with OpenSSL 3
+RUN pip install --no-cache-dir --upgrade cryptography>=39.0.0
 
 ################
 # 4 Entrypoint #
